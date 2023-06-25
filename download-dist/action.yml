@@ -1,0 +1,128 @@
+name: Download python wheel/sdist
+description: 'Ensure python is installed, and setup pypi caching'
+
+inputs:
+  version:
+    type: choice
+    description: 'Python Version to use'
+    options: 
+      - '3.7'
+      - '3.8'
+      - '3.9'
+      - '3.10'
+      - '3.11'
+      - '3.12'
+  kind:
+    type: choice
+    description: "Kind of asset to install"
+    options: 
+        - wheel
+        - sdist
+  install_path:
+    type: string
+    description: 'Path to install into'
+    default: '.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download artifact (${{ inputs.kind }})
+      uses: actions/download-artifact@v3
+      with:
+          name: ${{ inputs.kind }}
+          path: ./dist
+
+    - name: Install artifact (${{ inputs.kind }})
+      shell: bash
+      run: pip install -U dist/*.tar.gz --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'sdist' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.7)
+      shell: bash
+      run: pip install -U dist/*cp37*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.7' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.8)
+      shell: bash
+      run: pip install -U dist/*cp38*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.8' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.9)
+      shell: bash
+      run: pip install -U dist/*cp39*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.9' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.10)
+      shell: bash
+      run: pip install -U dist/*cp310*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.10' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.11)
+      shell: bash
+      run: pip install -U dist/*cp311*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.11' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.12)
+      shell: bash
+      run: pip install -U dist/*cp312*manylinux*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.12' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.7)
+      shell: bash
+      run: pip install -U dist/*cp37*macosx*x86_64.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.7' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.8)
+      shell: bash
+      run: pip install -U dist/*cp38*macosx*x86_64.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.8' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.9)
+      shell: bash
+      run: pip install -U dist/*cp39*macosx*x86_64.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.9' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.10)
+      shell: bash
+      run: pip install -U dist/*cp310*macosx*x86_64.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.10' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.11)
+      shell: bash
+      run: pip install -U dist/*cp311*macosx*x86_64*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.11' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.12)
+      shell: bash
+      run: pip install -U dist/*cp312*macosx*x86_64*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.12' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.7)
+      shell: bash
+      run: pip install -U dist/*cp37*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.7' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.8)
+      shell: bash
+      run: pip install -U dist/*cp38*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.8' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.9)
+      shell: bash
+      run: pip install -U dist/*cp39*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.9' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.10)
+      shell: bash
+      run: pip install -U dist/*cp310*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.10' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.11)
+      shell: bash
+      run: pip install -U dist/*cp311*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.11' }}
+
+    - name: Install artifact (${{ inputs.kind }} 3.12)
+      shell: bash
+      run: pip install -U dist/*cp312*win*.whl --target ${{ inputs.install_path }}
+      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.12' }}

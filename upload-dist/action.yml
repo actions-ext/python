@@ -1,0 +1,27 @@
+name: Upload python wheel/sdist
+description: 'Ensure python is installed, and setup pypi caching'
+
+inputs:
+  kind:
+    type: choice
+    description: "Kind of asset to upload"
+    options: 
+        - wheel
+        - sdist
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Upload artifact (${{ inputs.kind }})
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.kind }}
+        path: 'dist/*.whl'
+      if: ${{ inputs.kind == 'wheel' }}
+
+    - name: Upload artifact (${{ inputs.kind }})
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.kind }}
+        path: 'dist/*.tar.gz'
+      if: ${{ inputs.kind == 'sdist' }}
