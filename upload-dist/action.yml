@@ -5,9 +5,9 @@ inputs:
   kind:
     type: choice
     description: "Kind of asset to upload"
-    options: 
-        - wheel
-        - sdist
+    options:
+      - wheel
+      - sdist
 
 runs:
   using: 'composite'

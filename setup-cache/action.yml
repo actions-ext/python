@@ -1,14 +1,9 @@
-name: Setup Python Caching
+name: Setup Python caching
 description: 'Setup pip caching'
 
 runs:
   using: 'composite'
   steps:
-    ##########
-    # Caches #
-    ##########
-    ################
-    # Pip Cache
     - name: Setup pip cache
       uses: actions/cache@v3
       with:

@@ -5,26 +5,20 @@ inputs:
   version:
     type: choice
     description: "Version to install"
-    options: 
-        - '3.7'
-        - '3.8'
-        - '3.9'
-        - '3.10'
-        - '3.11'
+    options:
+      - '3.7'
+      - '3.8'
+      - '3.9'
+      - '3.10'
+      - '3.11'
+    default: '3.9'
 
 runs:
   using: 'composite'
   steps:
-    ##########
-    # Caches #
-    ##########
-    ################
     - name: Setup Pip caching
       uses: actions-ext/python/setup-cache@v1
 
-    ###############################
-    # Language and Compiler Setup #
-    ###############################
     - name: Set up Python ${{ inputs.version }}
       uses: actions/setup-python@v4
       with:

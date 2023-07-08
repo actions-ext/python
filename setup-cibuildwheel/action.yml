@@ -1,0 +1,26 @@
+name: Setup cibuildwheel
+description: 'Ensure cibuildwheel is installed, and setup caching'
+
+inputs:
+  version:
+    type: choice
+    description: "Python version"
+    options:
+      - '3.7'
+      - '3.8'
+      - '3.9'
+      - '3.10'
+      - '3.11'
+    default: '3.9'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup cibuildwheel caching
+      uses: actions-ext/python/setup-cibuildwheel-cache@v1
+      with:
+        version: ${{ inputs.version }}
+
+    - name: Install cibuildwheel
+      run: pip install -U cibuildwheel
+      shell: bash

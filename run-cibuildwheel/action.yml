@@ -5,39 +5,33 @@ inputs:
   version:
     type: choice
     description: 'Python Version to use'
-    options: 
+    options:
       - '3.7'
       - '3.8'
       - '3.9'
       - '3.10'
       - '3.11'
       - '3.12'
+    default: '3.9'
   kind:
     type: choice
     description: 'Kind of asset to install, "cp" or "pp"'
-    options: 
-        - cp
-        - pp
+    options:
+      - cp
+      - pp
     default: 'cp'
+  test:
+    type: string
+    description: 'Test command to pass through to cibuildwheel'
+    default: 'echo "Skipping tests, run on separate actions"'
 
 runs:
   using: 'composite'
   steps:
-    - name: Display cibuildwheel cache dir
-      id: cibuildwheel-cache
-      run: |
-        from platformdirs import user_cache_path
-        import os
-
-        with open(os.getenv('GITHUB_OUTPUT'), 'w') as f:
-          f.write(f"dir={str(user_cache_path(appname='cibuildwheel', appauthor='pypa'))}")
-      shell: python
-
-    - name: Cache cibuildwheel tools
-      uses: actions/cache@v3
+    - name: Setup cibuildwheel caching
+      uses: actions-ext/python/setup-cibuildwheel@v1
       with:
-        path: ${{ steps.cibuildwheel-cache.outputs.dir }}
-        key: ${{ runner.os }}-cibuildwheel-${{ inputs.version }}
+        version: ${{ inputs.version }}
 
     - name: Install cibuildwheel
       run: pip install -U cibuildwheel
@@ -48,7 +42,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}37-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }} "
       if: ${{ runner.os == 'Linux' && inputs.version == '3.7'}}
 
     - name: Build wheels (Linux 3.8)
@@ -56,7 +50,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}38-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Linux' && inputs.version == '3.8'}}
 
     - name: Build wheels (Linux 3.9)
@@ -64,7 +58,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}39-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Linux' && inputs.version == '3.9'}}
 
     - name: Build wheels (Linux 3.10)
@@ -72,7 +66,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}310-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Linux' && inputs.version == '3.10'}}
 
     - name: Build wheels (Linux 3.11)
@@ -80,7 +74,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}311-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Linux' && inputs.version == '3.11'}}
 
     - name: Build wheels (Linux 3.12)
@@ -88,7 +82,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}312-*x86_64"  # only build x86_64, skip i686
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Linux' && inputs.version == '3.12'}}
 
     - name: Build wheels (Mac 3.7)
@@ -96,7 +90,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}37-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.7'}}
 
     - name: Build wheels (Mac 3.8)
@@ -104,7 +98,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}38-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.8'}}
 
     - name: Build wheels (Mac 3.9)
@@ -112,7 +106,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}39-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.9'}}
 
     - name: Build wheels (Mac 3.10)
@@ -120,7 +114,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}310-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.10'}}
 
     - name: Build wheels (Mac 3.11)
@@ -128,7 +122,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}311-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.11'}}
 
     - name: Build wheels (Mac 3.12)
@@ -136,7 +130,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}312-*"  # build x86_64, arm64, and universal2
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'macOS' && inputs.version == '3.12'}}
 
     - name: Build wheels (Windows 3.7)
@@ -144,7 +138,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}37-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.7'}}
 
     - name: Build wheels (Windows 3.8)
@@ -152,7 +146,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}38-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.8'}}
 
     - name: Build wheels (Windows 3.9)
@@ -160,7 +154,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}39-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.9'}}
 
     - name: Build wheels (Windows 3.10)
@@ -168,7 +162,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}310-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.10'}}
 
     - name: Build wheels (Windows 3.11)
@@ -176,7 +170,7 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}311-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.11'}}
 
     - name: Build wheels (Windows 3.12)
@@ -184,5 +178,5 @@ runs:
       shell: bash
       env:
         CIBW_BUILD: "${{ inputs.kind }}312-*amd64"  # build amd64, skip win32 and arm64
-        CIBW_TEST_COMMAND: "echo 'Skipping tests, run on separate actions'"
+        CIBW_TEST_COMMAND: "${{ inputs.test }}"
       if: ${{ runner.os == 'Windows' && inputs.version == '3.12'}}

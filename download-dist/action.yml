@@ -5,7 +5,7 @@ inputs:
   version:
     type: choice
     description: 'Python Version to use'
-    options: 
+    options:
       - '3.7'
       - '3.8'
       - '3.9'
@@ -15,9 +15,9 @@ inputs:
   kind:
     type: choice
     description: "Kind of asset to install"
-    options: 
-        - wheel
-        - sdist
+    options:
+      - wheel
+      - sdist
   install_path:
     type: string
     description: 'Path to install into'
@@ -29,8 +29,8 @@ runs:
     - name: Download artifact (${{ inputs.kind }})
       uses: actions/download-artifact@v3
       with:
-          name: ${{ inputs.kind }}
-          path: ./dist
+        name: ${{ inputs.kind }}
+        path: ./dist
 
     - name: Install artifact (${{ inputs.kind }})
       shell: bash
