@@ -17,6 +17,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Install platformdirs
+      run: pip install -U platformdirs
+      shell: bash
+
     - name: Display cibuildwheel cache dir
       id: cibuildwheel-cache
       run: |
