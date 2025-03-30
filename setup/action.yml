@@ -6,19 +6,15 @@ inputs:
     type: choice
     description: "Version to install"
     options:
-      - '3.7'
-      - '3.8'
       - '3.9'
       - '3.10'
       - '3.11'
-    default: '3.9'
+      - '3.12'
+    default: '3.11'
 
 runs:
   using: 'composite'
   steps:
-    - name: Setup Pip caching
-      uses: actions-ext/python/setup-cache@v1
-
     - name: Set up Python ${{ inputs.version }}
       uses: actions/setup-python@v4
       with:
@@ -27,3 +23,14 @@ runs:
         cache-dependency-path: |
           "**/pyproject.toml"
           "**/setup.py"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+        ignore-nothing-to-cache: true
+        prune-cache: false
+
+    - name: Setup uv to use system python without extra flags
+      shell: bash
+      run: echo "UV_SYSTEM_PYTHON=1" >> $GITHUB_ENV

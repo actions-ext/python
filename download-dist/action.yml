@@ -6,8 +6,6 @@ inputs:
     type: choice
     description: 'Python Version to use'
     options:
-      - '3.7'
-      - '3.8'
       - '3.9'
       - '3.10'
       - '3.11'
@@ -37,16 +35,6 @@ runs:
       run: pip install -U dist/*.tar.gz --target ${{ inputs.install_path }}
       if: ${{ inputs.kind == 'sdist' }}
 
-    - name: Install artifact (${{ inputs.kind }} 3.7)
-      shell: bash
-      run: pip install -U dist/*cp37*manylinux*.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.7' }}
-
-    - name: Install artifact (${{ inputs.kind }} 3.8)
-      shell: bash
-      run: pip install -U dist/*cp38*manylinux*.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.8' }}
-
     - name: Install artifact (${{ inputs.kind }} 3.9)
       shell: bash
       run: pip install -U dist/*cp39*manylinux*.whl --target ${{ inputs.install_path }}
@@ -67,16 +55,6 @@ runs:
       run: pip install -U dist/*cp312*manylinux*.whl --target ${{ inputs.install_path }}
       if: ${{ inputs.kind == 'wheel' && runner.os == 'Linux' && inputs.version == '3.12' }}
 
-    - name: Install artifact (${{ inputs.kind }} 3.7)
-      shell: bash
-      run: pip install -U dist/*cp37*macosx*x86_64.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.7' }}
-
-    - name: Install artifact (${{ inputs.kind }} 3.8)
-      shell: bash
-      run: pip install -U dist/*cp38*macosx*x86_64.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.8' }}
-
     - name: Install artifact (${{ inputs.kind }} 3.9)
       shell: bash
       run: pip install -U dist/*cp39*macosx*x86_64.whl --target ${{ inputs.install_path }}
@@ -96,16 +74,6 @@ runs:
       shell: bash
       run: pip install -U dist/*cp312*macosx*x86_64*.whl --target ${{ inputs.install_path }}
       if: ${{ inputs.kind == 'wheel' && runner.os == 'macOS' && inputs.version == '3.12' }}
-
-    - name: Install artifact (${{ inputs.kind }} 3.7)
-      shell: bash
-      run: pip install -U dist/*cp37*win*.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.7' }}
-
-    - name: Install artifact (${{ inputs.kind }} 3.8)
-      shell: bash
-      run: pip install -U dist/*cp38*win*.whl --target ${{ inputs.install_path }}
-      if: ${{ inputs.kind == 'wheel' && runner.os == 'Windows' && inputs.version == '3.8' }}
 
     - name: Install artifact (${{ inputs.kind }} 3.9)
       shell: bash

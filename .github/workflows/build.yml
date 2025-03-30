@@ -30,17 +30,14 @@ jobs:
       run: touch pyproject.toml
 
     - name: Setup Python
-      uses: actions-ext/python/setup@v1
+      uses: actions-ext/python/setup@main
       with:
-        version: '3.9'
-
-    - name: Setup Python
-      uses: actions-ext/python/setup-cache@v1
+        version: '3.11'
 
     - name: Setup cibuildwheel
-      uses: actions-ext/python/setup-cibuildwheel@v1
+      uses: actions-ext/python/setup-cibuildwheel@main
       with:
-        version: '3.9'
+        version: '3.11'
 
     - name: Setup cibuildwheel caching
-      uses: actions-ext/python/setup-cibuildwheel-cache@v1
+      uses: actions-ext/python/setup-cibuildwheel-cache@main
