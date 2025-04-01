@@ -14,7 +14,7 @@ inputs:
   uv:
     type: boolean
     description: "Use uv to install python packages"
-    default: true
+    default: 'true'
 
 runs:
   using: 'composite'
