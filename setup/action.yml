@@ -11,6 +11,10 @@ inputs:
       - '3.11'
       - '3.12'
     default: '3.11'
+  uv:
+    type: boolean
+    description: "Use uv to install python packages"
+    default: true
 
 runs:
   using: 'composite'
@@ -19,10 +23,17 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.version }}
+      if: ${{ inputs.uv == 'true' }}
+
+    - name: Set up Python ${{ inputs.version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.version }}
         cache: "pip"
         cache-dependency-path: |
           "**/pyproject.toml"
           "**/setup.py"
+      if: ${{ inputs.uv != 'true' }}
 
     - name: Install uv
       uses: astral-sh/setup-uv@v5
@@ -30,7 +41,9 @@ runs:
         enable-cache: true
         ignore-nothing-to-cache: true
         prune-cache: false
+      if: ${{ inputs.uv == 'true' }}
 
     - name: Setup uv to use system python without extra flags
       shell: bash
       run: echo "UV_SYSTEM_PYTHON=1" >> $GITHUB_ENV
+      if: ${{ inputs.uv == 'true' }}
