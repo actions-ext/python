@@ -47,3 +47,8 @@ runs:
       shell: bash
       run: echo "UV_SYSTEM_PYTHON=1" >> $GITHUB_ENV
       if: ${{ inputs.uv == 'true' }}
+
+    - name: Install uv as a python package for use of `python -m uv`
+      shell: bash
+      run: python -m pip install uv
+      if: ${{ inputs.uv == 'true' }}
