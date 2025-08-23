@@ -23,12 +23,14 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.version }}
+        allow-prereleases: true
       if: ${{ inputs.uv == 'true' }}
 
     - name: Set up Python ${{ inputs.version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.version }}
+        allow-prereleases: true
         cache: "pip"
         cache-dependency-path: |
           "**/pyproject.toml"
