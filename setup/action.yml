@@ -10,6 +10,10 @@ inputs:
       - '3.10'
       - '3.11'
       - '3.12'
+      - '3.13'
+      - '3.13t'
+      - '3.14'
+      - '3.14t'
     default: '3.11'
   uv:
     type: boolean
@@ -22,6 +26,7 @@ runs:
     - name: Set up Python ${{ inputs.version }}
       uses: actions/setup-python@v5
       with:
+        allow-prereleases: true
         python-version: ${{ inputs.version }}
         allow-prereleases: true
       if: ${{ inputs.uv == 'true' }}
