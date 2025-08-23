@@ -48,7 +48,7 @@ runs:
         ignore-nothing-to-cache: true
         prune-cache: false
         with:
-          python-version: ${{ inputs.version }}
+          python-version: "${{ inputs.version }}"
       if: ${{ inputs.uv == 'true' }}
 
     - name: Setup uv to use system python without extra flags
