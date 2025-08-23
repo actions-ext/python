@@ -26,7 +26,6 @@ runs:
     - name: Set up Python ${{ inputs.version }}
       uses: actions/setup-python@v5
       with:
-        allow-prereleases: true
         python-version: ${{ inputs.version }}
         allow-prereleases: true
       if: ${{ inputs.uv == 'true' }}
