@@ -1,0 +1,18 @@
+name: Test Sdist Install
+description: 'Install an sdist from dist/ in a fresh venv and verify a module can be imported'
+
+inputs:
+  module:
+    description: "Python module name to test importing"
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Test sdist install
+      shell: bash
+      run: |
+        python -m venv .test-sdist
+        VENV_BIN=".test-sdist/bin"; [ -d ".test-sdist/Scripts" ] && VENV_BIN=".test-sdist/Scripts"
+        "$VENV_BIN/pip" install dist/*.tar.gz
+        "$VENV_BIN/python" -c "import ${{ inputs.module }}"

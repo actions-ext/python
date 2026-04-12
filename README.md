@@ -10,3 +10,5 @@ Helper actions for Python projects
 | [run-cibuildwheel](./run-cibuildwheel)                 | `actions-ext/python/run-cibuildwheel`         | Run [`cibuildwheel`](https://cibuildwheel.readthedocs.io/en/stable/)               |
 | [upload-dist](./upload-dist)                           | `actions-ext/python/upload-dist`              | Upload a python sdist or wheel                                                     |
 | [download-dist](./download-dist)                       | `actions-ext/python/download-dist`            | Download and install a python sdist or wheel                                       |
+| [test-wheel](./test-wheel)                             | `actions-ext/python/test-wheel`               | Install a wheel in a fresh venv and verify module import                           |
+| [test-sdist](./test-sdist)                             | `actions-ext/python/test-sdist`               | Install an sdist in a fresh venv and verify module import                          |

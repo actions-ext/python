@@ -1,0 +1,18 @@
+name: Test Wheel Install
+description: 'Install a wheel from dist/ in a fresh venv and verify a module can be imported'
+
+inputs:
+  module:
+    description: "Python module name to test importing"
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Test wheel install
+      shell: bash
+      run: |
+        python -m venv .test-wheel
+        VENV_BIN=".test-wheel/bin"; [ -d ".test-wheel/Scripts" ] && VENV_BIN=".test-wheel/Scripts"
+        "$VENV_BIN/pip" install dist/*.whl
+        "$VENV_BIN/python" -c "import ${{ inputs.module }}"
