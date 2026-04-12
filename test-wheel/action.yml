@@ -14,5 +14,5 @@ runs:
       run: |
         python -m venv .test-wheel
         VENV_BIN=".test-wheel/bin"; [ -d ".test-wheel/Scripts" ] && VENV_BIN=".test-wheel/Scripts"
-        "$VENV_BIN/pip" install dist/*.whl
+        for whl in dist/*.whl; do "$VENV_BIN/pip" install "$whl"; done
         "$VENV_BIN/python" -c "import ${{ inputs.module }}"

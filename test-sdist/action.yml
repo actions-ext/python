@@ -14,5 +14,5 @@ runs:
       run: |
         python -m venv .test-sdist
         VENV_BIN=".test-sdist/bin"; [ -d ".test-sdist/Scripts" ] && VENV_BIN=".test-sdist/Scripts"
-        "$VENV_BIN/pip" install dist/*.tar.gz
+        for sdist in dist/*.tar.gz; do "$VENV_BIN/pip" install "$sdist"; done
         "$VENV_BIN/python" -c "import ${{ inputs.module }}"
