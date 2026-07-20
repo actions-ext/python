@@ -7,7 +7,7 @@ The following example yaml code will upload `dist/*.tar.gz` as an asset called `
 
 ```yaml
 - name: Upload sdist
-  uses: actions-ext/python/upload-dist@14e52561e5f255ba52d2e04d3cc2f3dedb1065af
+  uses: actions-ext/python/upload-dist@5f78fa2cadf4dad2a7cded3c72655bcdd3dda735
   with:
     kind: 'sdist'
 ```
@@ -16,7 +16,7 @@ The following example yaml code will upload `dist/*.whl` as an asset called `whe
 
 ```yaml
 - name: Upload wheel
-  uses: actions-ext/python/upload-dist@14e52561e5f255ba52d2e04d3cc2f3dedb1065af
+  uses: actions-ext/python/upload-dist@5f78fa2cadf4dad2a7cded3c72655bcdd3dda735
   with:
     kind: 'wheel'
 ```
