@@ -7,7 +7,7 @@ The following example yaml code will setup Python 3.11 environment with pip cach
 
 ```yaml
 - name: Setup Python
-  uses: actions-ext/python/setup@v1
+  uses: actions-ext/python/setup@483e9bc27293f10c0c798fa01ff9bc0518c71b02
   with:
     version: '3.11'
 ```

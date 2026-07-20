@@ -7,7 +7,7 @@ The following example yaml code will download and install a `cp311` wheel for `m
 
 ```yaml
 - name: Download wheels
-  uses: actions-ext/python/download-dist@v1
+  uses: actions-ext/python/download-dist@483e9bc27293f10c0c798fa01ff9bc0518c71b02
   with:
     version: '3.11'
     kind: 'wheel'

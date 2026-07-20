@@ -7,7 +7,7 @@ The following example yaml code will install cibuildwheel and configure caching.
 
 ```yaml
 - name: Setup cibuildwheel
-  uses: actions-ext/python/setup-cibuildwheel@v1
+  uses: actions-ext/python/setup-cibuildwheel@483e9bc27293f10c0c798fa01ff9bc0518c71b02
   with:
     version: '3.11'
 ```
