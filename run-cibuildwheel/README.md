@@ -7,7 +7,7 @@ The following example yaml code will build a `cp311` wheel for `manylinux-x86_64
 
 ```yaml
 - name: Run cibuildwheel
-  uses: actions-ext/python/run-cibuildwheel@3327753a563b380e4efc5cb91a548301e68c2e64
+  uses: actions-ext/python/run-cibuildwheel@14e52561e5f255ba52d2e04d3cc2f3dedb1065af
   with:
     version: '3.11'
     kind: 'cp'
