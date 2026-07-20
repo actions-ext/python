@@ -27,7 +27,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup cibuildwheel caching
-      uses: actions-ext/python/setup-cibuildwheel@v1
+      uses: ./python/setup-cibuildwheel
       with:
         version: ${{ inputs.version }}
 

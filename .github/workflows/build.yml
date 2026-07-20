@@ -29,14 +29,14 @@ jobs:
       run: touch pyproject.toml
 
     - name: Setup Python
-      uses: actions-ext/python/setup@main
+      uses: ./python/setup
       with:
         version: ${{ matrix.python-version }}
 
     - name: Setup cibuildwheel
-      uses: actions-ext/python/setup-cibuildwheel@main
+      uses: ./python/setup-cibuildwheel
       with:
         version: ${{ matrix.python-version }}
 
     - name: Setup cibuildwheel caching
-      uses: actions-ext/python/setup-cibuildwheel-cache@main
+      uses: ./python/setup-cibuildwheel-cache
