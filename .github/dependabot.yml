@@ -1,7 +1,16 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/"
+      - "/download-dist"
+      - "/run-cibuildwheel"
+      - "/setup"
+      - "/setup-cibuildwheel"
+      - "/setup-cibuildwheel-cache"
+      - "/test-sdist"
+      - "/test-wheel"
+      - "/upload-dist"
     schedule:
       interval: "monthly"
     labels: []
